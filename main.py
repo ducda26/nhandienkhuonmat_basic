@@ -22,6 +22,20 @@ cv2.rectangle(imgCheck, (faceCheck[3], faceCheck[0]),
               (faceCheck[1], faceCheck[2]), (255, 0, 255), 2)
 
 
+# So sánh hình ảnh mã hóa với các điểm trên khuôn mặt có khớp không
+results = face_recognition.compare_faces([encodeElon], encodeCheck)
+print(results)
+
+# tuy nhiên khi có nhiều hình ảnh thì chúng ta cần phải biết
+# khoảng cách (sai số ) giữa các bức ảnh là bao nhiêu?
+faceDis = face_recognition.face_distance([encodeElon], encodeCheck)
+print(results, faceDis)
+
+
+# Hiển thị kết quả lên màn hình
+cv2.putText(imgCheck, f"{results}{((1-round(faceDis[0],2)))*100}%",
+            (50, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2)
+
 cv2.imshow("Elon", imgElon)  # view thử ảnh để kiểm tra
 cv2.imshow("ElonCheck", imgCheck)
 cv2.waitKey()
